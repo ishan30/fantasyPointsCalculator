@@ -22,3 +22,9 @@
   .button {
     width: 100%;
   }
+
+  .result {
+    color: slategray;
+    /* margin-block-start: unset; */
+    margin-left: 5em;
+  }
