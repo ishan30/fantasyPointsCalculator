@@ -1,14 +1,20 @@
+The website is published to github pages : 
+https://ishan30.github.io/fantasyPointsCalculator/
+
+If you modify anything and want to publish the changes, Please do a pull request and merge code & build files to master using following command :
+ng build --prod --base-href https://ishan30.github.io/fantasyPointsCalculator/ --output-path docs;
+
+
 # Iplpointcalculator
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.
+Technologies used :
+    -Angular
+    -Angular Material UI
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
 
