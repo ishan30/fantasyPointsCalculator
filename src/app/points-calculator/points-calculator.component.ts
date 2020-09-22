@@ -128,6 +128,8 @@ export class PointsCalculatorComponent implements OnInit {
       return 50;
     } else if (wickets >= 2) {
       return 20;
+    } else {
+      return 0;
     }
   }
 
