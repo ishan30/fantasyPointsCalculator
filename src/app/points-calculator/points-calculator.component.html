@@ -1,0 +1,65 @@
+<mat-toolbar color="primary">
+    <span class="fill-remaining-space">IPL Points Calculator</span>
+  </mat-toolbar>
+<div >
+<span>To check latest scores please visit :</span>
+<a target="_blank" href="https://www.espncricinfo.com/scores/series/8048/season/2020/indian-premier-league?view=results">CricInfo</a>
+</div>
+
+<br/>
+<div class="container" *ngIf="!post; else forminfo" novalidate> 
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+
+        <mat-form-field class="form-element">
+            <input matInput placeholder="Name" formControlName="name">
+            <mat-error *ngIf="!name.valid && name.touched">
+              {{ titleAlert }}
+            </mat-error>
+          </mat-form-field> 
+          <mat-form-field class="example-full-width">
+            <input matInput type="number" placeholder="Runs" formControlName="run">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput type="number" placeholder="Dot balls" formControlName="dotball">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput type="number" placeholder="Wickets" formControlName="wicket">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput type="number" placeholder="Catches" formControlName="catch">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput type="number" placeholder="Stumpings" formControlName="stumping">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput type="number" placeholder="Maiden Overs" formControlName="maiden">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput type="number" placeholder="Hattrick" formControlName="hattrick">
+          </mat-form-field>
+          <mat-radio-group aria-label="Select an option" formControlName="capBonus">
+            <mat-radio-button value="1">Captain</mat-radio-button>
+            <mat-radio-button value="2">Vice Captain</mat-radio-button>
+            <mat-radio-button value="3">None</mat-radio-button>
+
+          </mat-radio-group>
+          <p>MOM</p>
+          <mat-radio-group aria-label="Select an option" formControlName="mom">
+            <mat-radio-button value="1">Yes</mat-radio-button>
+            <mat-radio-button value="2">No</mat-radio-button>
+          </mat-radio-group>
+          <div class="form-element">
+            <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Calculate</button>
+          </div>
+    </form>
+</div>
+<div *ngIf='points'>
+    <p> Score is {{points}}</p>
+</div>
+
