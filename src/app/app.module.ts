@@ -41,6 +41,7 @@ import {
   MatStepperModule,
 } from '@angular/material';
 import { PointsGridDataComponent } from './points-grid-data/points-grid-data.component';
+import { AppRoutingModule } from './app-routing/app-routing.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +51,7 @@ import { PointsGridDataComponent } from './points-grid-data/points-grid-data.com
   imports: [
     BrowserModule,
     FormsModule,
+    AppRoutingModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
