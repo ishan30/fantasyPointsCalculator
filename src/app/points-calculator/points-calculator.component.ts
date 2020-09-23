@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Observable, pipe } from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import { AuctionTeams } from 'src/assets/auctionteams';
+import { TeamDataService } from '../team-data.service';
 
 @Component({
   selector: 'app-points-calculator',
@@ -7,8 +11,13 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
   styleUrls: ['./points-calculator.component.css']
 })
 export class PointsCalculatorComponent implements OnInit {
+  // options: string[] = ['One', 'Two', 'Three'];
+  teamOptions;
+  filteredTeamOptions;
+  playerOptions;
+  filteredPlayerOptions;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private teamDataService: TeamDataService) { }
 
   // runs = 0 ;
   points = 0;
@@ -16,14 +25,17 @@ export class PointsCalculatorComponent implements OnInit {
   titleAlert = 'This field is required';
   post: any = '';
 
+
   ngOnInit() {
+    this.teamOptions = this.teamDataService.getTeams();
     this.createForm();
     this.setChangeValidate();
   }
 
   createForm() {
     this.formGroup = this.formBuilder.group({
-      name: [null, Validators.required],
+      team: [null, Validators.required],
+      playerName: [null, Validators.required],
       run: [null, Validators.required],
       dotball: [null, Validators.required],
       wicket: [null, Validators.required],
@@ -35,22 +47,46 @@ export class PointsCalculatorComponent implements OnInit {
       mom: [null, Validators.required],
       validate: ''
     });
+
+    this.filteredTeamOptions = this.team.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+
+
   }
   setChangeValidate() {
-    this.formGroup.get('validate').valueChanges.subscribe(
-      (validate) => {
-        if (validate === '1') {
-          this.formGroup.get('name').setValidators([Validators.required, Validators.minLength(3)]);
-          this.titleAlert = 'You need to specify at least 3 characters';
-        } else {
-          this.formGroup.get('name').setValidators(Validators.required);
-        }
-        this.formGroup.get('name').updateValueAndValidity();
-      }
-    );
+    // this.formGroup.get('validate').valueChanges.subscribe(x`
+    //   (validate) => {
+    //     if (validate === '1') {
+    //       this.formGroup.get('playerName').setValidators([Validators.required, Validators.minLength(3)]);
+    //       this.titleAlert = 'You need to specify at least 3 characters';
+    //     } else {
+    //       this.formGroup.get('playerName').setValidators(Validators.required);
+    //     }
+    //     this.formGroup.get('playerName').updateValueAndValidity();
+    //   }
+    // );
+
+    this.formGroup.get('validate').valueChanges.subscribe();
   }
-  get name() {
-    return this.formGroup.get('name') as FormControl;
+  get playerName() {
+    return this.formGroup.get('playerName') as FormControl;
+  }
+  get team() {
+    return this.formGroup.get('team') as FormControl;
+  }
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.teamOptions.filter(option => option.toLowerCase().includes(filterValue));
+  }
+  private _filterPlayers(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.playerOptions.filter(option => option.toLowerCase().includes(filterValue));
+    // return this.playerOptions.filter(option => option.filter(x => x.toLowerCase().includes(filterValue)) );
   }
   onSubmit(post) {
     console.table(post);
@@ -155,5 +191,21 @@ export class PointsCalculatorComponent implements OnInit {
     } else {
       return 1;
     }
+  }
+
+  teamSelected() {
+    const teamChosen = this.formGroup.get('team').value;
+    console.log('selected team');
+  }
+  onSelectionChange(event) {
+    console.log('onSelectionChange called', event.option.value);
+    // this.formGroup.controls.playerName.enable();
+    const selectedTeam = event.option.value;
+    this.playerOptions = this.teamDataService.getPlayersFromTeam(selectedTeam)[0];
+    this.filteredPlayerOptions = this.playerName.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filterPlayers(value))
+    );
   }
 }
