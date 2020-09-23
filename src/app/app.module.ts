@@ -40,10 +40,12 @@ import {
   MatTooltipModule,
   MatStepperModule,
 } from '@angular/material';
+import { PointsGridDataComponent } from './points-grid-data/points-grid-data.component';
 @NgModule({
   declarations: [
     AppComponent,
-    PointsCalculatorComponent
+    PointsCalculatorComponent,
+    PointsGridDataComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Observable, pipe } from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { AuctionTeams } from 'src/assets/auctionteams';
+import { PointData } from 'src/pointData';
+import { PointsdataService } from '../pointsdata.service';
 import { TeamDataService } from '../team-data.service';
 
 @Component({
@@ -17,7 +19,9 @@ export class PointsCalculatorComponent implements OnInit {
   playerOptions;
   filteredPlayerOptions;
 
-  constructor(private formBuilder: FormBuilder, private teamDataService: TeamDataService) { }
+  constructor(private formBuilder: FormBuilder,
+              private teamDataService: TeamDataService,
+              private pointsDataService: PointsdataService) { }
 
   // runs = 0 ;
   points = 0;
@@ -92,6 +96,14 @@ export class PointsCalculatorComponent implements OnInit {
     console.table(post);
     this.points = post.run;
     this.calculate(post);
+    const playerPerformance: PointData = {
+      playerName: post.playerName,
+      teamName: post.team,
+      points: this.points,
+      match: 1,
+      playerType: post.capBonus
+    };
+    this.pointsDataService.addPlayerPerformance(playerPerformance);
   }
 
   calculate(data) {
