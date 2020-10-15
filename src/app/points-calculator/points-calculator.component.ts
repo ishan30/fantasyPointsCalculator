@@ -118,7 +118,7 @@ export class PointsCalculatorComponent implements OnInit {
     }
     if (data.dotball) {
       const dotballBonus = this.calculateDotBallBonus(data.dotball);
-      this.points += dotballBonus;
+      this.points = this.points + data.dotball + dotballBonus;
     }
     if (data.catch) {
       this.points = this.points + (data.catch * 10);
