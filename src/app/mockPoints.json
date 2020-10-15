@@ -1,0 +1,16 @@
+[
+    {
+      "playerName": "Shreyas Iyer",
+      "teamName": "Semicolon Spartans (Ishan)",
+      "points": 59,
+      "match": 1,
+      "playerType": 3
+    },
+    {
+        "playerName": "Kagiso Rabada",
+        "teamName": "Semicolon Spartans (Ishan)",
+        "points": 100,
+        "match": 1,
+        "playerType": 3
+      }
+  ]
