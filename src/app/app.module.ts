@@ -43,12 +43,14 @@ import {
 import { PointsGridDataComponent } from './points-grid-data/points-grid-data.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { UserDataComponent } from './user-data/user-data.component';
+import { AboutMeComponent } from './about-me/about-me.component';
 @NgModule({
   declarations: [
     AppComponent,
     PointsCalculatorComponent,
     PointsGridDataComponent,
-    UserDataComponent
+    UserDataComponent,
+    AboutMeComponent
   ],
   imports: [
     BrowserModule,
