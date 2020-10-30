@@ -42,11 +42,13 @@ import {
 } from '@angular/material';
 import { PointsGridDataComponent } from './points-grid-data/points-grid-data.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { UserDataComponent } from './user-data/user-data.component';
 @NgModule({
   declarations: [
     AppComponent,
     PointsCalculatorComponent,
-    PointsGridDataComponent
+    PointsGridDataComponent,
+    UserDataComponent
   ],
   imports: [
     BrowserModule,
